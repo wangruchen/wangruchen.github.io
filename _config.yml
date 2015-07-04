@@ -10,12 +10,12 @@ url: "http://yulijia.net/freshman21" # the base hostname & protocol for your sit
 locale: en_US
 
 ### Personal info and site tools info:
-twitter_username: yulijia
-github_username:  yulijia
-disqus_shortname: freshman21
+# twitter_username: yulijia
+github_username:  wangruchen
+#disqus_shortname: freshman21
 favicon:     "/images/favicon.ico"
 aboutme: Hi, this is Wang Ruchen. # these are shown on aboutme-sidebar.
-aboutme_photo: "/images/wo.jpg"#https://i.imgur.com/Mdc4szJl.jpg # your photo.
+aboutme_photo: "/images/wo.jpg" # https://i.imgur.com/Mdc4szJl.jpg # your photo.
 
 
 ### Site setting:
