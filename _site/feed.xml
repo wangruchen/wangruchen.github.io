@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Freshman21</title>
-    <description>Freshman21 is a Jekyll blog theme.</description>
-    <link>http://yulijia.net/freshman21/</link>
-    <atom:link href="http://yulijia.net/freshman21/zfeed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 03 Jul 2015 21:27:54 +0800</pubDate>
-    <lastBuildDate>Fri, 03 Jul 2015 21:27:54 +0800</lastBuildDate>
+    <title>WangRuchen</title>
+    <description></description>
+    <link>/</link>
+    <atom:link href="/zfeed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 13 Jul 2015 22:45:19 +0800</pubDate>
+    <lastBuildDate>Mon, 13 Jul 2015 22:45:19 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -45,8 +45,8 @@
 &lt;p&gt;&lt;code&gt;git clone https://github.com/yulijia/freshman21.git -b gh-pages --single-branch&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 31 Mar 2015 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/news/2015/03/31/2.0version.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/news/2015/03/31/2.0version.html</guid>
+        <link>/news/2015/03/31/2.0version.html</link>
+        <guid isPermaLink="true">/news/2015/03/31/2.0version.html</guid>
         
         <category>version</category>
         
@@ -130,8 +130,8 @@
 
 </description>
         <pubDate>Fri, 19 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/articles/howto/2014/12/19/how-to-set-the-config-file.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/articles/howto/2014/12/19/how-to-set-the-config-file.html</guid>
+        <link>/articles/howto/2014/12/19/how-to-set-the-config-file.html</link>
+        <guid isPermaLink="true">/articles/howto/2014/12/19/how-to-set-the-config-file.html</guid>
         
         <category>configure</category>
         
@@ -273,8 +273,8 @@
 &lt;/ol&gt;
 </description>
         <pubDate>Fri, 19 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/articles/howto/2014/12/19/freshman21-structure.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/articles/howto/2014/12/19/freshman21-structure.html</guid>
+        <link>/articles/howto/2014/12/19/freshman21-structure.html</link>
+        <guid isPermaLink="true">/articles/howto/2014/12/19/freshman21-structure.html</guid>
         
         <category>structure</category>
         
@@ -300,8 +300,8 @@
 
 </description>
         <pubDate>Thu, 18 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/articles/2014/12/18/how-to-install.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/articles/2014/12/18/how-to-install.html</guid>
+        <link>/articles/2014/12/18/how-to-install.html</link>
+        <guid isPermaLink="true">/articles/2014/12/18/how-to-install.html</guid>
         
         <category>sample-post</category>
         
@@ -477,8 +477,8 @@ This species is listed as Extinct in the Wild, as all populations are still unde
 &lt;p&gt;here is a &lt;q&gt; q tag &lt;/q&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 13 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/articles/2014/12/13/simple-post.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/articles/2014/12/13/simple-post.html</guid>
+        <link>/articles/2014/12/13/simple-post.html</link>
+        <guid isPermaLink="true">/articles/2014/12/13/simple-post.html</guid>
         
         <category>sample-post</category>
         
@@ -498,8 +498,8 @@ Based on genetic comparisons, Père David’s deer is closely related to the dee
 &lt;p&gt;[1] &lt;strong&gt;Pitra, C.; Fickel, J.; Meijaard, E.; Groves, C. (1 December 2004).&lt;/strong&gt; &lt;a href=&quot;http://arts.anu.edu.au/grovco/pitra%20deer.pdf&quot;&gt;“Evolution and phylogeny of old world deer”&lt;/a&gt;. &lt;em&gt;Molecular Phylogenetics and Evolution&lt;/em&gt; &lt;strong&gt;33&lt;/strong&gt; (3): 880–895.&lt;/p&gt;
 </description>
         <pubDate>Thu, 10 Oct 2013 00:00:00 +0800</pubDate>
-        <link>http://yulijia.net/freshman21/articles/2013/10/10/milu.html</link>
-        <guid isPermaLink="true">http://yulijia.net/freshman21/articles/2013/10/10/milu.html</guid>
+        <link>/articles/2013/10/10/milu.html</link>
+        <guid isPermaLink="true">/articles/2013/10/10/milu.html</guid>
         
         <category>Père David&#39;s deer</category>
         
