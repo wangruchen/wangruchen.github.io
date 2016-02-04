@@ -1,14 +1,29 @@
+
 <!DOCTYPE html>
 
 <html>
-    <head>
-      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-      <title>{{ page.title }}</title>
-    </head>
-    <body>
+  {% include head.html %}
 
-      {{ content }}
+  <body>
+  <!--[if lt IE 7]>
+      <strong>It seems your browser is quite a bit old, to get latest browser go to this link <a href="http://browsehappy.com">BROWSE HAPPY </a> And get the happy face</strong>
+  <![endif]-->
 
-    </body>
+  {% include header.html %}
+
+    <div class="container">
+
+
+        {{ content }}
+
+
+
+    {% include footer.html %}
+
+    </div>
+    {% include scriptHolder.html %}
+
+
+  </body>
+
 </html>
-

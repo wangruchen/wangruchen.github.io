@@ -1,4 +1,11 @@
-author: wangruchen
-name: Wangruchen's Homepage
-email: lanyingfenfei@126.com
-github: wangruchen
+# Site settings
+title: Wangruchen's Homepage
+smalltalk: "-_-"
+description: > # My blog Powred by jekyll
+# baseurl: "" # the subpath of your site, e.g. /blog/
+paginate: 5
+# url: "" # the base hostname & protocol for your site
+github_username: wangruchen
+
+# Build settings
+markdown: kramdown
