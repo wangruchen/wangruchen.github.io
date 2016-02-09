@@ -1,4 +1,9 @@
-# Github创建个人主页笔记
+---
+layout: default
+title: Github创建个人主页笔记
+---
+
+# {{ page.title }}
 
 ## 安装Jekyll
 
@@ -27,7 +32,7 @@
 ```
 jekyll --server
 ```
-预览http:127.0.0.1:4000
+预览http://127.0.0.1:4000
 
 ## jekyll目录结构
 
