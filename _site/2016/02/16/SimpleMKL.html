@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SimpleMKL论文笔记</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="/2016/02/16/SimpleMKL.html">
+  <!-- <link rel="alternate" type="application/rss+xml" title="Wangruchen's Homepage" href="/feed.xml" /> -->
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+ 
+
+	
+  <!--Added styles css-->	
+  <link rel="stylesheet" href="/css/normalize.css"/>
+
+  <link rel="stylesheet" href="/css/custom.css"/>
+
+   <link rel="stylesheet" href="/css/style.css"/>
+
+    <!--Font awesome-->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+   <!--modernizr-->
+   <script src="js/modernizr.js"></script>
+	
+
+
+</head>
+
+
+  <body>
+  <!--[if lt IE 7]>
+      <strong>It seems your browser is quite a bit old, to get latest browser go to this link <a href="http://browsehappy.com">BROWSE HAPPY </a> And get the happy face</strong>
+  <![endif]-->
+
+  
+<!-- Start with the header -->
+<section class="header" id="header">
+
+
+
+    <a class="tab pi-default pi-big pi-flat" target="_blank" href="https://github.com/wangruchen"><i class="fa fa-github"></i> My Github</a>
+
+    <!-- Main Head Title -->
+    <h2><a href="/">Wangruchen's Homepage</a></h2>
+    <p>-_-</p>
+
+
+
+
+     <a class="page-link" href="">About</a>
+</section>
+
+
+    <div class="container">
+
+
+        <h1 id="simplemkl">SimpleMKL论文笔记</h1>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<p>(Optimize Linear risk 2-step)</p>
+
+<p>这篇文章提出了SimpleMKL，一个新的MKL算法，基于mixed-norm regularization。SimpleMKL不仅可以被用于二分类，还可以被用在回归、聚类或多分类。</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>多核学习的问题是学习参数<img src="http://www.forkosh.com/mathtex.cgi? \alpha_{i}" />和权重<img src="http://www.forkosh.com/mathtex.cgi? d_{m}" />。<img src="http://www.forkosh.com/mathtex.cgi? \alpha_{i}" />是拉格朗日系数，<img src="http://www.forkosh.com/mathtex.cgi? d_{m}" />是每个核函数结合的权重。Lanckriet et al. (2004b)介绍了针对二分类的多核学习问题，随着样本的增加和核变大，约束的二次规划问题变得更困难（resulting in a quadratically constrained quadratic programming problem that becomes rapidly intractable as the number of learning examples or kernels become large）。造成这个的原因是它是一个凸的而不是平滑最小化的问题。</p>
+
+<p>在这篇文章中针对MKL问题的另个一构想。用a weighted l2-norm regularization代替mixed-norm regularization。这个构想得到了一个平滑凸优化函数。</p>
+
+<p>这篇文章的主要贡献是提出SimpleMKL，通过引入a weighted l2-norm regularization，解决MKL问题。这种方法的本质是基于梯度下降法。</p>
+
+<p>文章第二部分介绍本文MKL的功能公式。第三部分是详细的算法描述和计算复杂度。第四部分讨论本文算法在其他SVM问题上的扩展。第五部分室实验结果的计算复杂度和其他方法的对比。</p>
+
+<h2 id="multiple-kernel-learning-framework">Multiple Kernel Learning Framework</h2>
+
+<h3 id="function-framework">Function Framework</h3>
+
+<p>$$
+K(x,x’)=\sum^{M}_{m=1}d_{m}K_{m}(x,x’)
+$$
+MKL的目标就是在学习决策函数的过程中计算参数集合<img src="http://www.forkosh.com/mathtex.cgi? d_{m}" />。（接下来是怎样解决这个问题）</p>
+
+<h3 id="multiple-kernel-learning-primal-problem">Multiple Kernel Learning Primal Problem</h3>
+
+<p>MKL中的决策函数：
+$$
+f(x)+b=\sum_{m}f_{m}(x)+b
+$$
+其中<img src="http://www.forkosh.com/mathtex.cgi? f_{m}" />属于不同RKHS。</p>
+
+<p>MKL的原始问题：
+$$
+\min_{f_{m},b,\xi,d}\frac{1}{2}\sum_{m}\frac{1}{d_{m}}||f_{m}||^{2}_{H_{m}}+C\sum_{i}\xi_{i}
+$$
+$$
+s.t. y_{i}\sum_{m}f_{m}(x_{i})+y_{i}b\ge1-\xi_{i}
+$$
+$$
+\xi_{i}\ge0
+$$
+$$
+\sum_{m}d_{m}=1, d_{m}\ge0
+$$</p>
+
+<p>转换为拉格朗日问题：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/laSimpleMKL.png" alt="拉格朗日问题" /></p>
+
+<p>令上式的梯度等于零解得：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/laSolveSimpleMKL.png" alt="解" /></p>
+
+<h2 id="algorithm-for-solving-the-mkl-primal-problem">Algorithm for Solving the MKL Primal Problem</h2>
+
+<p>解MKL的原始问题。用MKL求最优分类超平面，它的原始优化问题为：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/SimpleMKLPrimal.png" alt="原始问题" /></p>
+
+<p>将原始问题转换为拉格朗日问题得到：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/laSimpleMKL.png" alt="拉格朗日问题" /></p>
+
+<p>上式要取得最大值，令其梯度等于零解得：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/laSolveSimpleMKL.png" alt="解" /></p>
+
+<h3 id="computing-the-optimal-svm-value-and-its-derivatives">Computing the Optimal SVM Value and its Derivatives</h3>
+
+<p>将解得的结果再代入到拉格朗日式子中，转换为对偶问题得到：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/dualSimpleMKL.png" alt="对偶问题" /></p>
+
+<p>函数<img src="http://www.forkosh.com/mathtex.cgi? J(d)" />被定义为对偶问题的目标值：<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/JSimpleMKL.png" alt="" /></p>
+
+<p>这篇文章将解决上面问题转换为简化梯度法（reduced gradient method）</p>
+
+<h3 id="reduced-gradient-algorithm">Reduced Gradient Algorithm</h3>
+
+<!--该算法迭代终止的条件有：duality gap, the KKT conditions, the variation of d between two consecutive steps or, even more simply, on a maximal number of iterations。这篇文章中采用的是duality gap（对偶间隙，指原始问题和对偶问题目标函数之间的差值）。-->
+
+<p>解上面这个问题通过reduced gradient method这个方法，先计算出J(d)的梯度和梯度方向：</p>
+
+<p><img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/JdSimpleMKL.png" alt="Jd" />
+<img src="file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/DmSimpleMKL.png" alt="Dm" /></p>
+
+<p>需要沿梯度方向更新d（<img src="http://www.forkosh.com/mathtex.cgi? d \gets d+\gamma D" />）；更新d需要找到在梯度方向上找最大的步长<img src="http://www.forkosh.com/mathtex.cgi? \gamma" />，检查目标值J(d)是否下降，如果继续下降就更新d；迭代直到目标值J(d)停止下降，就可以得到最优的步长，同时得到最终的d。</p>
+
+<!--计算出梯度下降的方向：![梯度下降方向](file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/desDirSimpleMKL.png)
+
+然后找到梯度方向上的最大步长，检查此处的<img src="http://www.forkosh.com/mathtex.cgi? J(d)">是否下降。如果<img src="http://www.forkosh.com/mathtex.cgi? J(d)">下降，则更新d，令<img src="http://www.forkosh.com/mathtex.cgi? D_{v}=0">并归一化D。不断重复这个过程，直到<img src="http://www.forkosh.com/mathtex.cgi? J(d)">不再下降。在这一点，找到最优步长<img src="http://www.forkosh.com/mathtex.cgi? \gamma">.-->
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>这篇文章提出了SimpleMKL模型，这种方法等同于其他MKL。但方法中主要增加了下降方法来解决优化问题。</p>
+
+<h1 id="section">其他</h1>
+
+<ol>
+  <li>选定核函数，以及每个特征采用的核函数。</li>
+  <li>对训练集进行训练得到支持向量、每个支持向量对应的拉格朗日系数、每个核函数的权重。</li>
+  <li>测试集特征，根据上面得到的支持向量、核函数权重，得到测试集的每个样本和支持向量间的核。</li>
+  <li>根据得到的测试集的核和拉格朗日系数得到测试集的分类。</li>
+</ol>
+
+<!--### Connections With mixed-norm Regularization Formulation of MKL
+
+
+
+
+**semi-infinite programming (SIP)**: an optimization problem with a finite number of variables and an infinite number of constraints, or an infinite number of variables and a finite number of constraints. 
+
+**Reproducing Kernel Hilbert Space (RKHS，再生核希尔伯特空间)**: 内积空间，高维空间-->
+
+
+
+
+    <section class="footer ">
+
+    <div class="row">
+
+        <div class="col-sm-offset-3 col-md-offset-3 col-md-6 text-center">
+            
+      <span>
+        <a class="header-link" href="https://github.com/wangruchen" target="_blank">
+            <i class="fa fa-2x fa-github-square 3x"></i>
+        </a>
+      </span>
+            
+
+
+            
+
+            
+
+
+            
+        </div>
+
+    </div>
+  <div class="row">
+  <div class="col-sm-offset-2 col-sm-5 col-md-offset-5 col-md-6 ">
+    <small><a href="http://www.mahabubislam.com">Mahabub I. </a><sup>&reg </sup>--- powerd by <a href="http://jekyllrb.com/">Jekyll</a></small>
+  </div>
+
+ 
+      <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'prioblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+
+
+</section>
+
+
+    </div>
+    <!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="assets/js/jquery.js"><\/script>')</script>
+
+<!-- Add custom scripts here -->
+<!-- Bootstrap js -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- Parallax js -->
+<script type="text/javascript" src="jquery.localscroll-1.2.7-min.js"></script>
+<script type="text/javascript" src="jquery.parallax-1.1.3.js"></script>
+<script type="text/javascript" src="jquery.scrollTo-1.4.2-min.js"></script>
+<script src="js/snippet.js"></script>
+<!-- /end of parallax js -->
+
+
+
+<!-- Add your google analytics here -->
+<!-- Change the XXXXXXX section in your site id -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+
+	
+
+
+  </body>
+
+</html>
