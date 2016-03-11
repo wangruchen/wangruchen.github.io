@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Support Vector Machine学习整理</title>
-  <meta name="description" content="">
+  <meta name="description" content="Support Vector Machine学习整理">
 
   <link rel="canonical" href="/2016/02/09/SVM.html">
   <!-- <link rel="alternate" type="application/rss+xml" title="Wangruchen's Homepage" href="/feed.xml" /> -->
@@ -84,15 +84,11 @@
   </li>
   <li>
     <p><strong>几何间隔（Geometrical margin）</strong>：为函数间隔除以<img src="http://www.forkosh.com/mathtex.cgi? ||\omega||" />,
-$$
-\tilde{\gamma}=\frac{\hat{\gamma}}{||\omega||}
-$$</p>
+<script type="math/tex">\tilde{\gamma}=\frac{\hat{\gamma}}{||\omega||}</script></p>
   </li>
   <li>
     <p><strong>最大间隔超平面</strong>：使得距离超平面最近的样本点与该超平面的几何间隔最大时确定的超平面为最大间隔超平面。寻找最大间隔超平面的目标函数为
-$$
-\max\tilde{\gamma}
-$$</p>
+<script type="math/tex">\max\tilde{\gamma}</script></p>
   </li>
   <li>
     <p><strong>支持向量</strong>：距离最大间隔超平面最近的样本点为支持向量。在决定分离超平面时，只有支持向量起作用。</p>
@@ -111,22 +107,14 @@ $$</p>
 
     <p>原始问题：假设原始问题如下：</p>
 
-    <p>$$
-   \min_{x} f(x), s.t. g(x)\le0
-   $$
+    <p><script type="math/tex">\min\_{x} f(x), s.t. g(x)\le0</script>
    引进广义拉格朗日函数：
-   $$
-   L(x,\lambda)=f(x)+\lambda g(x), \lambda\ge0
-   $$
+   <script type="math/tex">L(x,\lambda)=f(x)+\lambda g(x), \lambda\ge0</script>
    那么原问题等价于：
-   $$
-   \min_{x}\max_{\lambda:\lambda\ge0} L(x,\lambda)
-   $$</p>
+   <script type="math/tex">\min\_{x}\max\_{\lambda:\lambda\ge0} L(x,\lambda)</script></p>
 
     <p>对偶问题：将原问题极小极大顺序互换后的极大极小问题称为原始问题的对偶问题：
-   $$
-   \max_{\lambda:\lambda\ge0}\min_{x}L(x,\lambda)
-   $$</p>
+   <script type="math/tex">\max\_{\lambda:\lambda\ge0}\min\_{x}L(x,\lambda)</script></p>
   </li>
   <li>
     <p><strong>KKT条件（Karush-Kuhn-Tucker）</strong>：对含有不等式约束的优化问题，如何求最优值？常用的方法是KKT条件。</p>
@@ -142,60 +130,39 @@ $$</p>
 <p>SVM通过找到一个最大间隔超平面将样本分为两类。超平面可以表示为<img src="http://www.forkosh.com/mathtex.cgi? f(x)=w^{T}x+b" />，<img src="http://www.forkosh.com/mathtex.cgi? f(x)" />大于0的点对应类别为1，<img src="http://www.forkosh.com/mathtex.cgi? f(x)" />小于0的点对应的类别为-1。</p>
 
 <p>怎样确定最大间隔超平面？找到权值向量w和阈值b的最优值，使到超平面最近的样本点距离超平面最远，即几何间隔最大：
-$$
-\max\tilde{\gamma}=\max\frac{\hat{\gamma}}{||\omega||}=\max\frac{y(\omega^{T}x+b)}{||\omega||}
-$$</p>
+<script type="math/tex">\max\tilde{\gamma}=\max\frac{\hat{\gamma}}{||\omega||}=\max\frac{y(\omega^{T}x+b)}{||\omega||}</script></p>
 
 <p>令<img src="http://www.forkosh.com/mathtex.cgi? \hat{\gamma}=1" />，则目标函数转化为：
 <script type="math/tex">\max\frac{1}{||\omega||}, s.t., y\_{i}(\omega^{T}x\_{i}+b)\ge1, i=1,\dots,n</script></p>
 
 <p>这个目标函数等价于：
-$$
-\min\frac{1}{2}||\omega||^{2}, s.t., y_{i}(\omega^{T}x_{i}+b)\ge1, i=1,\dots,n
-$$</p>
+<script type="math/tex">\min\frac{1}{2}||\omega||^{2}, s.t., y\_{i}(\omega^{T}x\_{i}+b)\ge1, i=1,\dots,n</script></p>
 
 <p>这个凸优化问题通过拉格朗日对偶变换到对偶变量（这种方法效率高）：
-$$
-L(\omega,b,\alpha)=\frac{1}{2}||\omega||^{2}-\sum^{n}_{i=1}\alpha_{i}[y_{i}(\omega^{T}x_{i}+b)-1]
-$$ </p>
+<script type="math/tex">L(\omega,b,\alpha)=\frac{1}{2}||\omega||^{2}-\sum^{n}\_{i=1}\alpha\_{i}[y\_{i}(\omega^{T}x\_{i}+b)-1]</script></p>
 
 <p>令<img src="http://www.forkosh.com/mathtex.cgi? \theta(\omega)=\max_{\alpha_{i}\ge0}L(\omega,b,\alpha)" />，当所有约束条件都满足时，则有<img src="http://www.forkosh.com/mathtex.cgi? \theta(\omega)=\frac{1}{2}||\omega||^{2}" />。因此目标函数变为：
-$$
-\min_{\omega,b}\theta(\omega)=\min_{\omega,b}\max_{\alpha_{i}\ge0}L(\omega,b,\alpha)
-$$
+<script type="math/tex">\min\_{\omega,b}\theta(\omega)=\min\_{\omega,b}\max\_{\alpha\_{i}\ge0}L(\omega,b,\alpha)</script>
 将最小和最大位置交换一下得到：
-$$
-\max_{\omega,b}\min_{\alpha_{i}\ge0}L(\omega,b,\alpha)
-$$
+<script type="math/tex">\max\_{\omega,b}\min\_{\alpha\_{i}\ge0}L(\omega,b,\alpha)</script>
 在满足KKT条件下，解上式相当于间接的求解目标函数。
 求解上式，首先让L关于w和b最小化：
-$$
-\frac{\partial L}{\partial\omega}=0\Rightarrow \omega=\sum^{n}_{i=1}\alpha_{i}y_{i}x_{i}
-$$
-$$
-\frac{\partial L}{\partial b}=0\Rightarrow \sum^{n}_{i=1}\alpha_{i}y_{i}=0
-$$
+<script type="math/tex">\frac{\partial L}{\partial\omega}=0\Rightarrow \omega=\sum^{n}\_{i=1}\alpha\_{i}y\_{i}x\_{i}</script>
+<script type="math/tex">\frac{\partial L}{\partial b}=0\Rightarrow \sum^{n}\_{i=1}\alpha\_{i}y\_{i}=0</script>
 带回到L得到：
-$$
-L(\omega,b,\alpha)=\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}x^{T}_{i}x_{j}=\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}K(x_{i},x_{j})
-$$</p>
+<script type="math/tex">L(\omega,b,\alpha)=\sum^{n}\_{i=1}\alpha\_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}x^{T}\_{i}x\_{j}=\sum^{n}\_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}K(x\_{i},x\_{j})</script></p>
 
 <p>因此得到：
-$$
-\max L(\omega,b,\alpha)=\max\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}K(x_{i},x_{j})
-$$
-$$
-s.t. \sum^{n}_{i=1}y_{i}\alpha_{i}=0, 0\le \alpha_{i} \le C
-$$</p>
+<script type="math/tex">\max L(\omega,b,\alpha)=\max\sum^{n}\_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}K(x\_{i},x\_{j})</script>
+<script type="math/tex">s.t. \sum^{n}\_{i=1}y\_{i}\alpha\_{i}=0, 0\le \alpha\_{i} \le C</script></p>
 
 <p>以上为不等式约束的二次函数极值问题（Quadratic Programming, QP）。由Kuhn Tucker定理可知，上面的最优解必须满足KKT条件。</p>
 
 <p>利用SMO算法可以求解<img src="http://www.forkosh.com/mathtex.cgi? \alpha_{i}" />，求得了它就可以得到w和b（b根据最优权值向量和一个正的支持向量可以求出，<img src="http://www.forkosh.com/mathtex.cgi? b=1-W_{0}^{T}X^{s}" />）。</p>
 
 <p>代入到分类函数：
-$$
-f(x)=(\sum^{n}_{i=1}\alpha_{i}y_{i}x_{i})^{T}x+b=\sum^{n}_{i=1}\alpha_{i}y_{i}&lt;x_{i},x&gt;+b
-$$
+<script type="math/tex">% <![CDATA[
+f(x)=(\sum^{n}\_{i=1}\alpha\_{i}y\_{i}x\_{i})^{T}x+b=\sum^{n}\_{i=1}\alpha\_{i}y\_{i}\<x\_{i},x\>+b %]]></script>
 中可以得到预测的类别结果。</p>
 
 <!--在求<img src="http://www.forkosh.com/mathtex.cgi? L(\omega,b,\alpha)">关于w和b最小，即关于<img src="http://www.forkosh.com/mathtex.cgi? \alpha">极大，可以利用SMO算法求解拉格朗日乘子<img src="http://www.forkosh.com/mathtex.cgi? \alpha">-->
@@ -212,28 +179,18 @@ $$-->
 <p>若到高维空间的映射为<img src="http://www.forkosh.com/mathtex.cgi? \phi" />，则分类函数为：</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-
-f(x)=\sum^{n}\_{i=1}\omega\_{i}\phi\_{i}(x)+b=\sum^{n}\_{i=1}\alpha\_{i}y\_{i}\<\phi(x\_{i})·\phi(x)\>+b
- %]]></script>
+f(x)=\sum^{n}\_{i=1}\omega\_{i}\phi\_{i}(x)+b=\sum^{n}\_{i=1}\alpha\_{i}y\_{i}\<\phi(x\_{i})·\phi(x)\>+b %]]></script>
 
 <p>核函数为计算两个向量在隐式映射过后的空间中的内积函数：</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-
-K(x,z)=\<\phi(x)·\phi(z)\>
- %]]></script>
+K(x,z)=\<\phi(x)·\phi(z)\> %]]></script>
 
 <p>其中<img src="http://www.forkosh.com/mathtex.cgi? \alpha" />由如下计算得到：</p>
 
-<p>$$
-\max\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}k(x_{i},x_{j})
-$$
-$$
-s.t., \alpha_{i}\ge0, i=1,\dots,n
-$$
-$$
-\sum^{n}_{i=1}\alpha_{i}y_{i}=0
-$$</p>
+<p><script type="math/tex">\max\sum^{n}\_{i=1}\alpha\_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}k(x\_{i},x\_{j})</script>
+<script type="math/tex">s.t., \alpha\_{i}\ge0, i=1,\dots,n</script>
+<script type="math/tex">\sum^{n}\_{i=1}\alpha\_{i}y\_{i}=0</script></p>
 
 <h2 id="kernel-function-">Kernel Function (核函数)</h2>
 
@@ -242,33 +199,26 @@ $$</p>
 <h4 id="linear-kernel-">Linear Kernel (线性核)</h4>
 <p>主要用于线性可分的情形。参数较少（没有专门需要设置的参数），速度快。</p>
 
-<p>$$
-k(x_{1},x_{2})=&lt;x_{1},x_{2}&gt;
-$$
+<p><script type="math/tex">% <![CDATA[
+k(x\_{1},x\_{2})=\<x\_{1},x\_{2}\> %]]></script>
 实际上就是原始空间的内积。（其实就是线性情况，不用核函数）</p>
 
 <h4 id="polynomial-kernel-">Polynomial Kernel (多项式核)</h4>
 <p>三个参数：degree用来设置多项式核函数的最高次项次数，LIBSVM中默认值是3；gamma用来设置公式中的第一个r（gamma），LIBSVM中默认值是<img src="http://www.forkosh.com/mathtex.cgi? \frac{1}{k}" />(k是类别数)；coef0用来设置公式中的第二个R，LIBSVM中默认值是0。</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-
-k(x\_{1},x\_{2})=(r\<x\_{1},x\_{2}\>+R)^{d}
- %]]></script>
+k(x\_{1},x\_{2})=(r\<x\_{1},x\_{2}\>+R)^{d} %]]></script>
 
 <h4 id="gaussian-kernel-">Gaussian Kernel (高斯核)</h4>
 <p>主要用于线性不可分的情形。参数多，分类结果非常依赖于参数（通常通过交叉验证来寻找适合的参数）。gamma用来设置公式中的第一个r（gamma），LIBSVM中默认值是<img src="http://www.forkosh.com/mathtex.cgi? \frac{1}{k}" />(k是类别数)；惩罚因子C。</p>
 
-<script type="math/tex; mode=display">
-k(x\_{1},x\_{2})=e^{(-r\frac{||x\_{1}-x\_{2}||^{2}}{2\sigma^{2}})}
-</script>
+<script type="math/tex; mode=display">k(x\_{1},x\_{2})=e^{(-r\frac{||x\_{1}-x\_{2}||^{2}}{2\sigma^{2}})}</script>
 
 <h4 id="sigmoid-kernel">Sigmoid Kernel</h4>
 <p>两个参数：gamma用来设置公式中的第一个r（gamma），LIBSVM中默认值是<img src="http://www.forkosh.com/mathtex.cgi? \frac{1}{k}" />(k是类别数)；coef0用来设置核函数中的第二个R，LIBSVM中默认值是0。</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-
-k(x\_{1},x\_{2})=\tanh(r\<x\_{1},x\_{2}\>+R)
- %]]></script>
+k(x\_{1},x\_{2})=\tanh(r\<x\_{1},x\_{2}\>+R) %]]></script>
 
 <p>其他核函数<a href="http://blog.csdn.net/chlele0105/article/details/17068949">http://blog.csdn.net/chlele0105/article/details/17068949</a></p>
 
@@ -292,60 +242,34 @@ k(x\_{1},x\_{2})=\tanh(r\<x\_{1},x\_{2}\>+R)
 
 <h2 id="section-7">松弛变量</h2>
 <p>有时数据中会存在偏离正常位置很远的数据点，成为outlier。它们的存在可能会对超平面的确定有很大影响。为了处理这种情况，SVM允许数据点在一定程度上偏离超平面。因此约束条件变为：
-$$
-y_{i}(w^{T}x_{i}+b)\ge1-\xi_{i}
-$$
+<script type="math/tex">y\_{i}(w^{T}x\_{i}+b)\ge1-\xi\_{i}</script>
 其中<img src="http://www.forkosh.com/mathtex.cgi? \xi_{i}" />为松弛变量。</p>
 
 <p>引入松弛变量后，由于<img src="http://www.forkosh.com/mathtex.cgi? \xi_{i}" />不可以任意大，因此目标函数为：
-$$
-\min\frac{1}{2}||\omega||^{2}+C\sum^{n}_{i=1}\xi_{i}
-$$
-$$
-s.t., y_{i}(w^{T}x_{i}+b)\ge1-\xi_{i}
-$$
-$$
-\xi_{i}\ge0, i=1,\dots,n
-$$</p>
+<script type="math/tex">\min\frac{1}{2}||\omega||^{2}+C\sum^{n}\_{i=1}\xi\_{i}</script>
+<script type="math/tex">s.t., y\_{i}(w^{T}x\_{i}+b)\ge1-\xi\_{i}</script>
+<script type="math/tex">\xi\_{i}\ge0, i=1,\dots,n</script></p>
 
 <p>得到的拉格朗日函数为：
-$$
-L(\omega,b,\xi,\alpha,r)=\frac{1}{2}||\omega||^{2}+C\sum^{n}_{i=1}\xi_{i}-\sum^{n}_{i=1}\alpha_{i}(y_{i}(\omega^{T}x_{i}+b)-1+\xi_{i})-\sum^{n}_{i=1}r_{i}\xi_{i}
-$$
+<script type="math/tex">L(\omega,b,\xi,\alpha,r)=\frac{1}{2}||\omega||^{2}+C\sum^{n}\_{i=1}\xi\_{i}-\sum^{n}\_{i=1}\alpha\_{i}(y\_{i}(\omega^{T}x\_{i}+b)-1+\xi\_{i})-\sum^{n}\_{i=1}r\_{i}\xi\_{i}</script>
 求L对w、b和<img src="http://www.forkosh.com/mathtex.cgi? \xi_{i}" />最小化。</p>
 
-<p>$$
-\frac{\partial L}{\partial\omega}=0\Rightarrow \omega=\sum^{n}_{i=1}\alpha_{i}y_{i}x_{i}
-$$
-$$
-\frac{\partial L}{\partial b}=0\Rightarrow \sum^{n}_{i=1}\alpha_{i}y_{i}=0
-$$
-$$
-\frac{\partial L}{\partial\xi_{i}}=0\Rightarrow C-\alpha_{i}-r_{i}=0
-$$
+<p><script type="math/tex">\frac{\partial L}{\partial\omega}=0\Rightarrow \omega=\sum^{n}\_{i=1}\alpha\_{i}y\_{i}x\_{i}</script>
+<script type="math/tex">\frac{\partial L}{\partial b}=0\Rightarrow \sum^{n}\_{i=1}\alpha\_{i}y\_{i}=0</script>
+<script type="math/tex">\frac{\partial L}{\partial\xi\_{i}}=0\Rightarrow C-\alpha\_{i}-r\_{i}=0</script>
 将它们带入到L得到目标函数：</p>
 
-<p>$$
-\max\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}K(x_{i},x_{j})
-$$
-$$
-s.t., 0\le\alpha_{i}\le C, i=1,\dots,n
-$$
-$$
-\sum^{n}_{i=1}\alpha_{i}y_{i}=0
-$$</p>
+<p><script type="math/tex">\max\sum^{n}\_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}K(x\_{i},x\_{j})</script>
+<script type="math/tex">s.t., 0\le\alpha\_{i}\le C, i=1,\dots,n</script>
+<script type="math/tex">\sum^{n}\_{i=1}\alpha\_{i}y\_{i}=0</script></p>
 
 <h2 id="sequential-minimal-optimization-smo">Sequential minimal optimization (SMO，序列最小优化算法)</h2>
 
 <p>SMO是一种解决此类支持向量机优化问题的迭代算法。由于目标函数为凸函数，一般的优化算法都通过梯度方法一次优化一个变量求解二次规划问题的最大值。</p>
 
 <p>前面最后留下来的一个对偶函数优化问题为：
-$$
-\max L(\omega,b,\alpha)=\sum^{n}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}_{i,j=1}\alpha_{i}\alpha_{j}y_{i}y_{j}K(x_{i},x_{j})
-$$
-$$
-s.t. \sum^{n}_{i=1}y_{i}\alpha_{i}=0, 0\le \alpha_{i} \le C
-$$
+<script type="math/tex">\max L(\omega,b,\alpha)=\sum^{n}\_{i=1}\alpha_{i}-\frac{1}{2}\sum^{n}\_{i,j=1}\alpha\_{i}\alpha\_{j}y\_{i}y\_{j}K(x\_{i},x\_{j})</script>
+<script type="math/tex">s.t. \sum^{n}\_{i=1}y\_{i}\alpha\_{i}=0, 0\le \alpha\_{i} \le C</script>
 SMO就是要解这个凸二次规划问题</p>
 
 <p>参考文章：<a href="http://blog.csdn.net/v_july_v/article/details/7624837">支持向量机通俗导论（理解SVM的三层境界）</a></p>

@@ -9,3 +9,6 @@ github_username: wangruchen
 
 # Build settings
 markdown: kramdown
+
+# MathJax Support
+mathjax: true

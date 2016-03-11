@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Multiple Kernel Learning Algorithms论文笔记</title>
-  <meta name="description" content="">
+  <meta name="description" content="Multiple Kernel Learning Algorithms论文笔记">
 
   <link rel="canonical" href="/2016/02/12/Multiple_Kernel_Learning_Algorithms.html">
   <!-- <link rel="alternate" type="application/rss+xml" title="Wangruchen's Homepage" href="/feed.xml" /> -->
@@ -88,7 +88,7 @@
 
 <ol>
   <li>
-    <p><strong>Fixed rules</strong>: don’t need any training and parameters. </p>
+    <p><strong>Fixed rules</strong>: don’t need any training and parameters.</p>
 
     <p>按照固定的形式结合核函数，结合函数不需要参数和训练。</p>
   </li>
@@ -120,17 +120,17 @@
 
 <ol>
   <li>
-    <p><strong>Linear combination method</strong>: </p>
+    <p><strong>Linear combination method</strong>:</p>
 
     <p>线性结合方法：基本分为两类：无权重和（unweighted sum）、有权重和（weighted sum）。</p>
   </li>
   <li>
-    <p><strong>Nonlinear combination methods</strong>: </p>
+    <p><strong>Nonlinear combination methods</strong>:</p>
 
     <p>非线性结合方法：用非线性函数，例如乘法、求幂等。</p>
   </li>
   <li>
-    <p><strong>Data-dependent combination method</strong>: assign specific kernel weights for each data instance. </p>
+    <p><strong>Data-dependent combination method</strong>: assign specific kernel weights for each data instance.</p>
 
     <p>依赖数据的结合方法：为每个数据分配特定的核函数权重。</p>
   </li>
@@ -142,13 +142,13 @@
 
 <ol>
   <li>
-    <p><strong>Similarity-based functions</strong>: </p>
+    <p><strong>Similarity-based functions</strong>:</p>
 
     <p>基于相似度的函数：计算合并的核模型和训练集得到的最优核模型之间的相似度量，设置参数使得相似度最大。计算两个核之间相似度的方法有：kernel alignment, Euclidean distance, Kullback-Leibler (KL) divergence, or any other similarity measure。
 <!--calculate a similarity metric between the combined kernel matrix and an optimum kernel matrix calculated from the training data and select the combination function parameters that maximize the similarity. --></p>
   </li>
   <li>
-    <p><strong>Structural risk functions</strong>: </p>
+    <p><strong>Structural risk functions</strong>:</p>
 
     <p>结构风险函数：结构风险最小化，最小化正则项之和（对应于降低模型的复杂性和误差）。对核权重的约束可以结合正则项。For example, structural risk function can use the l1-norm, the l2-norm, or a mixed-norm on the kernel weights or feature spaces to pick the model parameters.</p>
   </li>
@@ -184,7 +184,7 @@
   <li>SVM和support vector regression (SVR)</li>
   <li>Kernel Fisher Discriminant analysis (KFD，核函数Fisher鉴别)：先对输入空间的样本进行非线性映射，变换到特征空间，然后在特征空间中利用线性Fisher鉴别寻找易于分类的投影线。</li>
   <li>Regularized kernel discriminant analysis (RKDA)</li>
-  <li>kernel ridge regression (KRR，核岭回归) </li>
+  <li>kernel ridge regression (KRR，核岭回归)</li>
 </ul>
 
 <h3 id="the-computational-complexity">The computational Complexity</h3>
