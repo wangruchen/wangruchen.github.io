@@ -30,7 +30,7 @@ title: SimpleMKL论文笔记
 ### Function Framework
 
 $$
-K(x,x')=\sum^{M}\_{m=1}d\_{m}K\_{m}(x,x')
+K(x,x')=\sum^{M}_{m=1}d_{m}K_{m}(x,x')
 $$
 MKL的目标就是在学习决策函数的过程中计算参数集合<img src="http://www.forkosh.com/mathtex.cgi? d_{m}">。（接下来是怎样解决这个问题）
 
@@ -38,22 +38,22 @@ MKL的目标就是在学习决策函数的过程中计算参数集合<img src="h
 
 MKL中的决策函数：
 $$
-f(x)+b=\sum\_{m}f\_{m}(x)+b
+f(x)+b=\sum_{m}f_{m}(x)+b
 $$
 其中<img src="http://www.forkosh.com/mathtex.cgi? f_{m}">属于不同RKHS。
 
 MKL的原始问题：
 $$
-\min\_{f\_{m},b,\xi,d}\frac{1}{2}\sum\_{m}\frac{1}{d\_{m}}||f\_{m}||^{2}\_{H\_{m}}+C\sum\_{i}\xi\_{i}
+\min_{f_{m},b,\xi,d}\frac{1}{2}\sum_{m}\frac{1}{d_{m}}||f_{m}||^{2}_{H_{m}}+C\sum_{i}\xi_{i}
 $$
 $$
-s.t. y\_{i}\sum\_{m}f\_{m}(x\_{i})+y\_{i}b\ge1-\xi\_{i}
+s.t. y_{i}\sum_{m}f_{m}(x_{i})+y_{i}b\ge1-\xi_{i}
 $$
 $$
-\xi\_{i}\ge0
+\xi_{i}\ge0
 $$
 $$
-\sum\_{m}d\_{m}=1, d\_{m}\ge0
+\sum_{m}d_{m}=1, d_{m}\ge0
 $$
 
 转换为拉格朗日问题：![拉格朗日问题](file:///Users/wangruchen/work/learningMaterials/MachineLearning/MultipleKernelLearning/figure/laSimpleMKL.png)
