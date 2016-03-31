@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Github创建个人主页笔记
+tags: [jekyll, github-pages]
 ---
 
 # {{ page.title }}

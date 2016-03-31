@@ -2,6 +2,7 @@
 layout: default
 title: 我来了
 category: test
+tag: test
 ---
 
 # {{ page.title }}

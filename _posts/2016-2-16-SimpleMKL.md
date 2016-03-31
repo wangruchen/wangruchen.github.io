@@ -1,6 +1,7 @@
 ---
 layout: default
 title: SimpleMKL论文笔记
+tags: [machine learning, MKL]
 ---
 
 # {{ page.title }}
